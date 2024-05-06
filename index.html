@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LastName_MultiCalc</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    input {
+      border: 2px solid #044284;
+      border-radius: 2px;
+      box-sizing: 1px 1px 2px #666;
+      padding: 5px;
+    }
+
+    /* Style the tab */
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      margin-bottom: 5vh;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+      background-color: #ccc;
+    }
+
+    .submit-button {
+      font-size: 1.25rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      cursor: pointer;
+      width: fit-content;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      margin: 0;
+      width: 100%;
+      min-height: 85vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* CALCULATOR */
+
+    .calculator {
+      background-color: black;
+      width: 360px;
+      height: 630px;
+    }
+
+    .display {
+      font-size: 60px;
+      text-align: right;
+      color: white;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #upperDisplay {
+      color: inherit;
+      height: 30px;
+      font-size: 16px;
+      color: grey;
+      padding-top: 8px;
+      padding-right: 8px;
+      word-break: break-all;
+    }
+
+    #lowerDisplay {
+      color: inherit;
+      font-size: 40px;
+      padding-right: 8px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      word-break: break-all;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
+    .left {
+      display: grid;
+      grid-template-rows: repeat(5, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .btn {
+      font-size: 25px;
+      cursor: pointer;
+      width: 90px;
+      height: 70px;
+    }
+
+    .btn.big {
+      width: 100%;
+      grid-column: span 2;
+    }
+
+    #clear,
+    #back {
+      color: #f1a33c;
+    }
+
+    #equals {
+      background-color: #f1a33c;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tab">
+    <button class="tablinks active" onclick="openCity(event, 'Advance_Calculator')">Advance Calculator</button>
+    <button class="tablinks" onclick="openCity(event, 'BMI_Calculator')">BMI</button>
+    <button class="tablinks" onclick="openCity(event, 'Random_Number_Generator')">Random Number Generator</button>
+  </div>
+
+  <div id="Advance_Calculator" class="tabcontent" style="display: flex;">
+    <div class="calculator">
+      <div class="display" id="display">
+        <div id="upperDisplay"></div>
+        <div id="lowerDisplay"></div>
+      </div>
+      <div class="buttons">
+        <div class="left">
+          <button class="btn" id="ac" value="AC">
+            AC
+          </button>
+          <button class="btn" id="delete" value="delete">
+            ←
+          </button>
+          <button class="btn" id="operator" value="log">
+            log
+          </button>
+          <button class="btn" id="open_parenthesis" value="open_parenthesis">
+            (
+          </button>
+          <button class="btn" id="close_parenthesis" value="close_parenthesis">
+            )
+          </button>
+          <button class="btn" id="operator" value="sqrt">
+            √
+          </button>
+          <button class="btn" id="operator" value="sin">
+            sin
+          </button>
+          <button class="btn" id="operator" value="cos">
+            cos
+          </button>
+          <button class="btn" id="operator" value="tan">
+            tan
+          </button>
+          <button class="btn" id="digit" value="7">
+            7
+          </button>
+          <button class="btn" id="digit" value="8">
+            8
+          </button>
+          <button class="btn" id="digit" value="9">
+            9
+          </button>
+          <button class="btn" id="digit" value="4">
+            4
+          </button>
+          <button class="btn" id="digit" value="5">
+            5
+          </button>
+          <button class="btn" id="digit" value="6">
+            6
+          </button>
+          <button class="btn" id="digit" value="1">
+            1
+          </button>
+          <button class="btn" id="digit" value="2">
+            2
+          </button>
+          <button class="btn" id="digit" value="3">
+            3
+          </button>
+          <button class="btn big" id="digit" value="0">
+            0
+          </button>
+          <button class="btn" id="digit" value=".">
+            .
+          </button>
+        </div>
+        <div class="right">
+          <button class="btn" id="operator" value="%">
+            %
+          </button>
+          <button class="btn" id="operator" value="^">
+            xʸ
+          </button>
+          <button class="btn" id="operator" value="/">
+            ÷
+          </button>
+          <button class="btn" id="operator" value="*">
+            *
+          </button>
+          <button class="btn" id="operator" value="-">
+            -
+          </button>
+          <button class="btn" id="operator" value="+">
+            +
+          </button>
+          <button class="btn" id="equal" value="=">
+            =
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="BMI_Calculator" class="tabcontent">
+    <div style="max-width: 680px; margin-left: 24px; margin-right: 24px;">
+      <h3>BMI Calculator</h3>
+      <p>The Body Mass Index (BMI) Calculator can be used to calculate BMI value and corresponding weight status while taking age into consideration. Use the "Metric Units" tab for the International System of Units or the "Other Units" tab to convert units into either US or metric units. Note that the calculator also computes the Ponderal Index in addition to BMI, both of which are discussed below in detail.</p>
+      <form id="bmi_form" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div>
+            <label for="age">Age</label>
+            <input name="age" id="age" type="number" required />
+          </div>
+          <div>
+            <p>ages: 2 - 120</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <strong>Gender</strong>
+          <div style="display: flex; gap: 4px;">
+            <label for="male">Male</label>
+            <input type="radio" name="gender" value="male" id="male" checked>
+          </div>
+          <div>
+            <label for="female">Female</label>
+            <input type="radio" name="gender" value="female" id="female">
+          </div>
+        </div>
+        <div>
+          <label for="height">Height(cm)</label>
+          <input id="height" type="number" required />
+        </div>
+        <div>
+          <label for="weight">Weight(kg)</label>
+          <input id="weight" type="number" required />
+        </div>
+        <button class="submit-button" type="submit">Calculate</button>
+        <div id="bmi_result" style="display: none;">
+          <strong>Result:</strong>
+          <p id="bmi_result_text"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="Random_Number_Generator" class="tabcontent">
+    <div style="max-width: 680px; margin-left: 24px; margin-right: 24px;">
+      <h3>Random Number Generator</h3>
+      <p>A random number is a number chosen from a pool of limited or unlimited numbers that has no discernible pattern for prediction. The pool of numbers is almost always independent from each other. However, the pool of numbers may follow a specific distribution. For example, the height of the students in a school tends to follow a normal distribution around the median height. If the height of a student is picked at random, the picked number has a higher chance to be closer to the median height than being classified as very tall or very short. The random number generators above assume that the numbers generated are independent of each other, and will be evenly spread across the whole range of possible values.
+
+      </p>
+      <form id="rng_form" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div>
+            <label for="lowerlimit">Lower Limit</label>
+            <input name="lowerlimit" id="lowerlimit" type="number" required />
+          </div>
+        </div>
+        <div>
+          <label for="upperlimit">Upper Limit</label>
+          <input id="upperlimit" type="number" required />
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <strong>Type of result to generate</strong>
+          <div style="display: flex; gap: 4px;">
+            <label for="integer">Integer</label>
+            <input type="radio" name="rng_type" value="integer" id="integer">
+          </div>
+          <div>
+            <label for="decimal">Decimal</label>
+            <input type="radio" name="rng_type" value="decimal" id="decimal" checked>
+          </div>
+        </div>
+        <button class="submit-button" type="submit">Calculate</button>
+        <div id="rng_result" style="display: none;">
+          <strong>Result:</strong>
+          <p id="rng_result_text"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // TABS LOGIC
+
+    function openCity (evt, cityName) {
+      // Declare all variables
+      let i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(cityName).style.display = "flex";
+      evt.currentTarget.className += " active";
+    }
+
+
+    // CALCULATOR LOGIC
+
+    const OPERATION_LIST = ["+", "-", "*", "/", "%"];
+    // Displays
+    let upperDisplay = document.querySelector("#upperDisplay");
+    let lowerDisplay = document.querySelector("#lowerDisplay");
+
+    // + - / * √ sin cos tan (  )
+    let operations = document.querySelectorAll("#operator");
+
+    let openParenthesis = document.querySelector("#open_parenthesis");
+    let closeParenthesis = document.querySelector("#close_parenthesis");
+
+    // 0,1,2,3,4,5,6,7,8,9 and .
+    let digits = document.querySelectorAll("#digit");
+
+    // AC and delete
+    let AC = document.querySelector("#ac");
+    let del = document.querySelector("#delete");
+
+    // =
+    let equal = document.querySelector("#equal");
+
+    let openParenthesisClickedCount = 0;
+    let closeParenthesisClickedCount = 0;
+
+    // selected operator, initialized as empty string
+    let selectedOperator = "";
+
+    // current and previous entered number, initialized as empty string
+    // this is where we stored the digits
+    // used for calculation when equal is pressed
+    let previousEnteredNumber = "";
+    let currentEnteredNumber = "";
+
+    // isEqualIsClicked is a boolean to check if the equal button is clicked,
+    // so when the user start clicking digits we reset the display
+    // which is the final result
+    let isEqualIsClicked = false; // initialized as false
+
+    // Function to reset everything to default
+    function reset () {
+      // reset everything including the displays
+      selectedOperator = "";
+      previousEnteredNumber = "";
+      currentEnteredNumber = "";
+      upperDisplay.innerHTML = "";
+      lowerDisplay.innerHTML = "";
+      isEqualIsClicked = false;
+    }
+
+    function error () {
+      reset();
+      isEqualIsClicked = true;
+      lowerDisplay.innerHTML = "Error";
+    }
+
+    // Loop through digit buttons and listen for any clicked "event"
+    for (let i = 0; i < digits.length; i++) {
+      // If any digits is clicked run the code below
+      digits[i].addEventListener("click", function (event) {
+        // get the value of the button
+        let value = event.target.value;
+
+        // If equal is clicked before, we need to reset everything because the display is the final result
+        // and the current and previous entered number variables are not empty
+        if (isEqualIsClicked) {
+          reset();
+        }
+
+        // append the value to the currentEnteredNumber variable
+        currentEnteredNumber = currentEnteredNumber + value;
+        // store the currentEnteredNumber into the lower display
+        lowerDisplay.innerHTML = currentEnteredNumber;
+      });
+    }
+
+    // Loop through operator buttons and listen for any clicked "event"
+    for (let i = 0; i < operations.length; i++) {
+      // If any operator is clicked run the code below
+      operations[i].addEventListener("click", function (event) {
+        // get the value of the button
+        let operator = event.target.value;
+
+        // If equal is clicked before, we need to reset everything because the display is the final result
+        // and the current and previous entered number variables are not empty
+        if (isEqualIsClicked) {
+          reset();
+        }
+
+        if (currentEnteredNumber === "") {
+          if (upperDisplay.innerHTML.slice(-1) === ")") {
+            upperDisplay.innerHTML = upperDisplay.innerHTML + " " + operator;
+          }
+          // exit
+          return;
+        }
+
+        if (operator === "sin") {
+          try {
+            const convertNumToRadians = parseFloat(currentEnteredNumber) * (Math.PI / 180);
+            const val = Math.sin(convertNumToRadians);
+            lowerDisplay.innerHTML = val;
+            currentEnteredNumber = val;
+            return;
+          } catch (error) {
+            error();
+          }
+        } else if (operator === "cos") {
+          try {
+            const convertNumToRadians = parseFloat(currentEnteredNumber) * (Math.PI / 180);
+            const val = Math.cos(convertNumToRadians);
+            lowerDisplay.innerHTML = val;
+            currentEnteredNumber = val;
+            return;
+          } catch (error) {
+            error();
+          }
+        } else if (operator === "tan") {
+          try {
+            const convertNumToRadians = parseFloat(currentEnteredNumber) * (Math.PI / 180);
+            const val = Math.tan(convertNumToRadians);
+            lowerDisplay.innerHTML = val;
+            currentEnteredNumber = val;
+            return;
+          } catch (error) {
+            error();
+          }
+        } else if (operator === "sqrt") {
+          try {
+            const val = Math.sqrt(currentEnteredNumber);
+            lowerDisplay.innerHTML = val;
+            currentEnteredNumber = val;
+            return;
+          } catch (error) {
+            error();
+          }
+        } else if (operator === "log") {
+          try {
+            const val = Math.log10(currentEnteredNumber);
+            lowerDisplay.innerHTML = val;
+            currentEnteredNumber = val;
+            return;
+          } catch (error) {
+            error();
+          }
+        } else {
+          // update display
+          upperDisplay.innerHTML = upperDisplay.innerHTML + " " + currentEnteredNumber + " " + operator;
+          // clear the currentEnteredNumber
+          // clear the lower display
+          currentEnteredNumber = "";
+          lowerDisplay.innerHTML = "";
+        }
+      });
+    }
+
+    openParenthesis.addEventListener("click", function () {
+      if (isEqualIsClicked) {
+        reset();
+      }
+      const upperDisplayText = upperDisplay.innerHTML;
+      if (upperDisplayText === "") {
+        upperDisplay.innerHTML = "(";
+        openParenthesisClickedCount++;
+        // exit
+        return;
+      }
+      if (OPERATION_LIST.indexOf(upperDisplayText.slice(-1)) !== -1) {
+        upperDisplay.innerHTML += " (";
+        openParenthesisClickedCount++;
+        // exit
+        return;
+      }
+
+      upperDisplay.innerHTML += "(";
+      openParenthesisClickedCount++;
+    });
+
+    closeParenthesis.addEventListener("click", function () {
+      if (isEqualIsClicked) {
+        reset();
+      }
+      const isLastUpperTextIsOperation = OPERATION_LIST.indexOf(upperDisplay.innerHTML.slice(-1)) !== -1;
+
+      if (isLastUpperTextIsOperation && currentEnteredNumber !== "") {
+        upperDisplay.innerHTML += currentEnteredNumber + ")";
+        currentEnteredNumber = "";
+        lowerDisplay.innerHTML = "";
+        closeParenthesisClickedCount++;
+        return;
+      }
+
+      if (isLastUpperTextIsOperation) return;
+
+      if (openParenthesisClickedCount > 0 && openParenthesisClickedCount !== closeParenthesisClickedCount) {
+        upperDisplay.innerHTML += currentEnteredNumber + ")";
+        currentEnteredNumber = "";
+        lowerDisplay.innerHTML = "";
+        closeParenthesisClickedCount++;
+        return;
+      }
+    });
+
+    // When delete or AC is clicked
+    AC.addEventListener("click", function () {
+      reset();
+    });
+    del.addEventListener("click", function () {
+      // remove one character at the end of the string(-1) in the lower display if not empty
+      let lowerDisplayHTML = lowerDisplay.innerHTML;
+      if (lowerDisplayHTML !== "") {
+        // slice takes two argument start and target, 0 means the start of the string and -1 is the last character
+        lowerDisplay.innerHTML = lowerDisplayHTML.slice(0, -1);
+      }
+      // remove one character at the end of the string(-1) in the currentEnteredNumber if not empty
+      if (currentEnteredNumber !== "") {
+        // slice takes two argument start and target, 0 means the start of the string and -1 is the last character
+        currentEnteredNumber = currentEnteredNumber.slice(0, -1);
+      }
+    });
+
+    // If equal is click, we lastly calculate the currentEnteredNumber and previousEnteredNumber then show the result
+    // then reset everything except the display
+    equal.addEventListener("click", function () {
+      try {
+        const final = upperDisplay.innerHTML + lowerDisplay.innerHTML;
+        let finalResult = eval(final.replace("^", "**"));
+        upperDisplay.innerHTML = upperDisplay.innerHTML + " " + currentEnteredNumber + " = " + finalResult;
+        lowerDisplay.innerHTML = finalResult;
+        // we set the isEqualIsClicked to true
+        isEqualIsClicked = true;
+      } catch (error) {
+        reset();
+        lowerDisplay.innerHTML = "Error";
+        isEqualIsClicked = true;
+      }
+    });
+
+
+    // BMI CALCULATOR
+    const ageDom = document.querySelector("#age");
+    const heightDom = document.querySelector("#height");
+    const weightDom = document.querySelector("#weight");
+    const bmiFormDom = document.querySelector("#bmi_form");
+    const bmiResultDom = document.querySelector("#bmi_result");
+    const bmiResultTextDom = document.querySelector("#bmi_result_text");
+
+    bmiFormDom.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const gender = document.querySelector("input[name=gender]:checked")?.value || "male";
+      const age = parseFloat(ageDom?.value || 1);
+      const height = parseFloat(heightDom?.value || 1);
+      const weight = parseFloat(weightDom?.value || 1);
+
+      const result = calculateBMI(age, height, weight, gender);
+      bmiResultDom.style.display = "block";
+      bmiResultTextDom.innerHTML = result
+    });
+
+    function calculateBMI (age, height_cm, weight_kg, gender) {
+      // Convert height from cm to meters
+      const height_m = height_cm / 100;
+
+      // Calculate BMI
+      const bmi = weight_kg / (height_m * height_m);
+
+      if (age < 18) {
+        if (gender === "male") {
+          if (bmi < 5) {
+            return "Underweight";
+          } else if (bmi >= 5 && bmi < 85) {
+            return "Healthy weight";
+          } else if (bmi >= 85 && bmi < 95) {
+            return "At risk of overweight";
+          } else {
+            return "Overweight";
+          }
+        } else if (gender === "female") {
+          if (bmi < 5) {
+            return "Underweight";
+          } else if (bmi >= 5 && bmi < 85) {
+            return "Healthy weight";
+          } else if (bmi >= 85 && bmi < 95) {
+            return "At risk of overweight";
+          } else {
+            return "Overweight";
+          }
+        } else {
+          return "Invalid gender";
+        }
+      } else {
+        if (bmi < 18.5) {
+          return "Underweight";
+        } else if (bmi >= 18.5 && bmi < 25) {
+          return "Normal";
+        } else if (bmi >= 25 && bmi < 30) {
+          return "Overweight";
+        } else {
+          return "Obesity";
+        }
+      }
+    }
+
+
+
+    // RANDOM NUMBER GENERATOR
+    const rngFormDom = document.querySelector("#rng_form");
+    const rngResultDom = document.querySelector("#rng_result");
+    const rngResultTextDom = document.querySelector("#rng_result_text");
+    const upperlimitDom = document.querySelector("#upperlimit");
+    const lowerlimitDom = document.querySelector("#lowerlimit");
+
+    rngFormDom.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const type = document.querySelector("input[name=rng_type]:checked")?.value || "integer";
+      const upperlimit = parseFloat(upperlimitDom?.value || 1);
+      const lowerlimit = parseFloat(lowerlimitDom?.value || 1);
+
+      const result = generateRandomNumber(lowerlimit, upperlimit, type);
+      rngResultDom.style.display = "block";
+      if (lowerlimit > upperlimit) {
+        rngResultTextDom.innerHTML = "-" + result;
+      } else {
+        rngResultTextDom.innerHTML = result;
+      }
+    });
+
+    function generateRandomNumber (lowerLimit, upperLimit, type) {
+      if (type === "integer") {
+        // Generate random integer
+        return Math.floor(Math.random() * (upperLimit - lowerLimit + 1)) + lowerLimit;
+      } else if (type === "decimal") {
+        // Generate random decimal
+        return (Math.random() * (upperLimit - lowerLimit) + lowerLimit);
+      }
+      return "Error";
+    }
+  </script>
+</body>
+
+</html>
